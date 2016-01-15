@@ -1,5 +1,14 @@
 <?php
-
+/*
+ * This file is part of the Exchange Rate package, an RunOpenCode project.
+ *
+ * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
+ *
+ * (c) 2016 RunOpenCode
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser;
 
 use RunOpenCode\ExchangeRate\Contract\RateInterface;
@@ -7,6 +16,13 @@ use RunOpenCode\ExchangeRate\Model\Rate;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Api;
 use RunOpenCode\Sax\Handler\AbstractSaxHandler;
 
+/**
+ * Class XmlParser
+ *
+ * Parse XML document with daily rates from National Bank of Serbia.
+ *
+ * @package RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser
+ */
 class XmlParser extends AbstractSaxHandler
 {
     /**

@@ -1,6 +1,6 @@
 {
     "name": "runopencode/exchange-rate-nbs",
-    "description": "Plugin for 'runopencode/exchange-rate' for fetching exchange rates from National Bank of Serbia.",
+    "description": "Plugin for 'runopencode/exchange-rate' library for fetching exchange rates from National Bank of Serbia.",
     "keywords": [
         "exchange rate", "national bank of serbia", "nbs"
     ],

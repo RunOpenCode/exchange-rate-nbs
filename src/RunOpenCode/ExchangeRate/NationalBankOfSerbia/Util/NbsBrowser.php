@@ -51,12 +51,12 @@ class NbsBrowser
             'index:inputCalendar1' => $date->format('d/m/Y'),
             'index:vrsta' => call_user_func(function($rateType) {
                 switch ($rateType) {
-                    case 'foreign_cache_buying':        // FALL TROUGH
-                    case 'foreign_cache_selling':
-                        return 1;
-                        break;
                     case 'foreign_exchange_buying':     // FALL TROUGH
                     case 'foreign_exchange_selling':
+                        return 1;
+                        break;
+                    case 'foreign_cash_buying':        // FALL TROUGH
+                    case 'foreign_cash_selling':
                         return 2;
                         break;
                     default:

@@ -36,8 +36,8 @@ final class Api
         'default' => array('EUR', 'AUD', 'CAD', 'CNY', 'HRK', 'CZK', 'DKK', 'HUF', 'JPY', 'KWD', 'NOK', 'RUB', 'SEK', 'CHF',
                            'GBP', 'USD', 'BAM', 'PLN', 'ATS', 'BEF', 'FIM', 'FRF', 'DEM', 'GRD', 'IEP', 'ITL', 'LUF', 'PTE',
                            'ESP'),
-        'foreign_cache_buying' => array('EUR', 'CHF', 'USD'),
-        'foreign_cache_selling' => array('EUR', 'CHF', 'USD'),
+        'foreign_cash_buying' => array('EUR', 'CHF', 'USD'),
+        'foreign_cash_selling' => array('EUR', 'CHF', 'USD'),
         'foreign_exchange_buying' => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
         'foreign_exchange_selling' => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD')
     );

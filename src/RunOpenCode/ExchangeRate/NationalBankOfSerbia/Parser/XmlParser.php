@@ -90,7 +90,7 @@ class XmlParser extends AbstractSaxHandler
                     if ($data === 'FOREIGN EXCHANGE') {
                         $this->rateType = 'foreign_exchange';
                     } elseif ($data === 'FOREIGN CASH') {
-                        $this->rateType = 'foreign_cache';
+                        $this->rateType = 'foreign_cash';
                     }
                     break;
                 case 'CURRENCY':

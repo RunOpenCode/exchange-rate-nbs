@@ -12,37 +12,37 @@
 return array (
     array (
         'currencyCode' => 'EUR',
-        'rateType' => 'foreign_cache_buying',
+        'rateType' => 'foreign_cash_buying',
         'value' => '120.7747',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'EUR',
-        'rateType' => 'foreign_cache_selling',
+        'rateType' => 'foreign_cash_selling',
         'value' => '122.4775',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CHF',
-        'rateType' => 'foreign_cache_buying',
+        'rateType' => 'foreign_cash_buying',
         'value' => '111.7353',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CHF',
-        'rateType' => 'foreign_cache_selling',
+        'rateType' => 'foreign_cash_selling',
         'value' => '113.3107',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'USD',
-        'rateType' => 'foreign_cache_buying',
+        'rateType' => 'foreign_cash_buying',
         'value' => '110.4681',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'USD',
-        'rateType' => 'foreign_cache_selling',
+        'rateType' => 'foreign_cash_selling',
         'value' => '112.0255',
         'date' => '2015-12-31'
     )

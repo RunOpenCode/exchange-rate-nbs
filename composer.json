@@ -36,7 +36,7 @@
         "symfony/dom-crawler": "~3.0",
         "symfony/css-selector": "~3.0",
         "runopencode/sax": "~1.0",
-        "runopencode/exchange-rate": "dev-master"
+        "runopencode/exchange-rate": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",

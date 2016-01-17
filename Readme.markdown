@@ -1,21 +1,22 @@
-Exchange rate
+Exchange rate source: National Bank of Serbia
 ====
-*Fetch, store and use currency exchange rates in your application*
 
 
-[![Packagist](https://img.shields.io/packagist/v/RunOpenCode/exchange-rate.svg)](https://packagist.org/packages/runopencode/exchange-rate)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/badges/build.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate/build-status/master)
-[![Build Status](https://travis-ci.org/RunOpenCode/exchange-rate.svg?branch=master)](https://travis-ci.org/RunOpenCode/exchange-rate)
+[![Packagist](https://img.shields.io/packagist/v/RunOpenCode/exchange-rate-nbs.svg)](https://packagist.org/packages/runopencode/exchange-rate-nbs)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/badges/build.png?b=master)](https://scrutinizer-ci.com/g/RunOpenCode/exchange-rate-nbs/build-status/master)
+[![Build Status](https://travis-ci.org/RunOpenCode/exchange-rate-nbs.svg?branch=master)](https://travis-ci.org/RunOpenCode/exchange-rate-nbs)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2ea424ca-2cfc-4b14-b1ae-3dafb7f93685/big.png)](https://insight.sensiolabs.com/projects/2ea424ca-2cfc-4b14-b1ae-3dafb7f93685)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/9621d64a-e1a9-4626-ae3d-423d5714585a/big.png)](https://insight.sensiolabs.com/projects/9621d64a-e1a9-4626-ae3d-423d5714585a)
 
 
+Plugin for library [runopencode/exchange-rate](https://github.com/RunOpenCode/exchange-rate), 
+fetch, store and use currency exchange rates provided from National Bank of Serbia in your application.
+ 
+Rates are acquired from their public, official website, by crawling their page with rates: 
+[http://www.nbs.rs/export/sites/default/internet/english/scripts/ondate.html](http://www.nbs.rs/export/sites/default/internet/english/scripts/ondate.html). 
 
-----------------
-
-This library is still in development process.
 
 
 

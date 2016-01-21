@@ -42,9 +42,9 @@ final class WebPageSource implements SourceInterface
      */
     private $browser;
 
-    public function __construct(NbsBrowser $browser)
+    public function __construct(NbsBrowser $browser = null)
     {
-        $this->browser = $browser;
+        $this->browser = ($browser !== null) ? $browser : new NbsBrowser();
         $this->cache = array();
     }
 

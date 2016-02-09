@@ -33,6 +33,8 @@
         "php": ">=5.5",
         "psr/log": "1.*",
         "guzzlehttp/guzzle": "~6.1",
+        "symfony/dom-crawler": "~2.8|~3.0",
+        "symfony/css-selector": "~2.8|~3.0",
         "runopencode/sax": "~1.0",
         "runopencode/exchange-rate": "~1.0"
     },

@@ -67,7 +67,7 @@ class NbsBrowser
             'index:prikaz' => 3, // XML
             'index:buttonShow' => 'Show',
             'index' => 'index',
-            'com.sun.faces.VIEW' => $this->getFormCsrfToken()
+            'javax.faces.ViewState' => $this->getFormCsrfToken()
         ));
     }
 
@@ -109,7 +109,7 @@ class NbsBrowser
          */
         foreach ($hiddens as $hidden) {
 
-            if ($hidden->getAttribute('id') === 'com.sun.faces.VIEW') {
+            if ($hidden->getAttribute('name') === 'javax.faces.ViewState') {
                 return $hidden->getAttribute('value');
             }
         }

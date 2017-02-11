@@ -4,18 +4,19 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Parser;
 
+use PHPUnit\Framework\TestCase;
 use RunOpenCode\ExchangeRate\Contract\RateInterface;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser\XmlParser;
 use RunOpenCode\Sax\SaxParser;
 
-class XmlParserTest extends \PHPUnit_Framework_TestCase
+class XmlParserTest extends TestCase
 {
     /**
      * @test
@@ -45,7 +46,7 @@ class XmlParserTest extends \PHPUnit_Framework_TestCase
 
         $rates = null;
 
-        SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'r'), function($result) use (&$rates) {
+        SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'rb'), function($result) use (&$rates) {
             $rates = $result;
         });
 

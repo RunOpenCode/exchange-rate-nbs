@@ -4,7 +4,7 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,6 +14,8 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use Psr\Http\Message\StreamInterface;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -51,17 +53,17 @@ class NbsBrowser
             'index:inputCalendar1' => $date->format('d/m/Y'),
             'index:vrsta' => call_user_func(function($rateType) {
                 switch ($rateType) {
-                    case 'foreign_exchange_buying':     // FALL TROUGH
-                    case 'foreign_exchange_selling':
+                    case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
+                    case RateType::FOREIGN_EXCHANGE_SELLING:
                         return 1;
-                        break;
-                    case 'foreign_cash_buying':        // FALL TROUGH
-                    case 'foreign_cash_selling':
+                        // break;
+                    case RateType::FOREIGN_CASH_BUYING:        // FALL TROUGH
+                    case RateType::FOREIGN_CASH_SELLING:
                         return 2;
-                        break;
+                        // break;
                     default:
                         return 3;
-                        break;
+                        // break;
                 }
             }, $rateType),
             'index:prikaz' => 3, // XML
@@ -114,7 +116,7 @@ class NbsBrowser
             }
         }
 
-        throw new \RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract token.');
+        throw new RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract token.');
     }
 
     /**

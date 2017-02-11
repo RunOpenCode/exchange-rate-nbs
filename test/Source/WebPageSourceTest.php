@@ -4,7 +4,7 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,10 +12,11 @@
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Source;
 
 use GuzzleHttp\Psr7\Stream;
+use PHPUnit\Framework\TestCase;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Source\WebPageSource;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 
-class WebPageSourceTest extends \PHPUnit_Framework_TestCase
+class WebPageSourceTest extends TestCase
 {
     /**
      * @test
@@ -65,15 +66,15 @@ class WebPageSourceTest extends \PHPUnit_Framework_TestCase
     {
         switch ($rateType) {
             case 'default':
-                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/median.xml', 'r'));
+                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/median.xml', 'rb'));
                 break;
             case 'foreign_cash_buying':         // FALL TROUGH
             case 'foreign_cash_selling':
-                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_cash.xml', 'r'));
+                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_cash.xml', 'rb'));
                 break;
             case 'foreign_exchange_buying':     // FALL TROUGH
             case 'foreign_exchange_selling':
-                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_exchange.xml', 'r'));
+                $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_exchange.xml', 'rb'));
                 break;
         }
 

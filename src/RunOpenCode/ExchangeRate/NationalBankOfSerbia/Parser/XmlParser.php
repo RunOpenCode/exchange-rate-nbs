@@ -4,7 +4,7 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,6 +14,8 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser;
 use RunOpenCode\ExchangeRate\Contract\RateInterface;
 use RunOpenCode\ExchangeRate\Model\Rate;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Api;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException;
 use RunOpenCode\Sax\Handler\AbstractSaxHandler;
 
 /**
@@ -59,7 +61,7 @@ class XmlParser extends AbstractSaxHandler
         $this->stack = new \SplStack();
         $this->currentRate = array();
         $this->date = new \DateTime('now');
-        $this->rateType = 'default';
+        $this->rateType = RateType::DEFAULT;
     }
 
     /**
@@ -160,7 +162,7 @@ class XmlParser extends AbstractSaxHandler
                 $this->rates[] = $buildRate(
                     $this->currentRate['middleRate'] / $this->currentRate['unit'],
                     $this->currentRate['currencyCode'],
-                    'default',
+                    RateType::DEFAULT,
                     $this->date
                 );
             }
@@ -184,7 +186,7 @@ class XmlParser extends AbstractSaxHandler
      */
     protected function onParseError($message, $code, $lineno)
     {
-        throw new \RuntimeException(sprintf('Unable to parse XML source from National Bank of Serbia, reason: "%s", lineno: "%s".', $message, $lineno), $code);
+        throw new RuntimeException(sprintf('Unable to parse XML source from National Bank of Serbia, reason: "%s", lineno: "%s".', $message, $lineno), $code);
     }
 
     /**

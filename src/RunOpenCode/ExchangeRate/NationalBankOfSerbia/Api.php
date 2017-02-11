@@ -4,12 +4,14 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia;
+
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 
 /**
  * Class Api
@@ -33,16 +35,19 @@ final class Api
      * @var array
      */
     private static $supports = array(
-        'default' => array('EUR', 'AUD', 'CAD', 'CNY', 'HRK', 'CZK', 'DKK', 'HUF', 'JPY', 'KWD', 'NOK', 'RUB', 'SEK', 'CHF',
+        RateType::DEFAULT => array('EUR', 'AUD', 'CAD', 'CNY', 'HRK', 'CZK', 'DKK', 'HUF', 'JPY', 'KWD', 'NOK', 'RUB', 'SEK', 'CHF',
                            'GBP', 'USD', 'BAM', 'PLN', 'ATS', 'BEF', 'FIM', 'FRF', 'DEM', 'GRD', 'IEP', 'ITL', 'LUF', 'PTE',
                            'ESP'),
-        'foreign_cash_buying' => array('EUR', 'CHF', 'USD'),
-        'foreign_cash_selling' => array('EUR', 'CHF', 'USD'),
-        'foreign_exchange_buying' => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
-        'foreign_exchange_selling' => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD')
+        RateType::FOREIGN_CASH_BUYING => array('EUR', 'CHF', 'USD'),
+        RateType::FOREIGN_CASH_SELLING => array('EUR', 'CHF', 'USD'),
+        RateType::FOREIGN_EXCHANGE_BUYING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
+        RateType::FOREIGN_EXCHANGE_SELLING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD')
     );
 
-    private function __construct() { }
+    private function __construct()
+    {
+        // noop
+    }
 
     /**
      * Check if National Bank of Serbia supports given exchange rate currency code for given rate type.

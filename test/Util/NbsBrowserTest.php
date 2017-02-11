@@ -4,7 +4,7 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,10 +12,11 @@
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Util;
 
 use GuzzleHttp\Psr7\Stream;
+use PHPUnit\Framework\TestCase;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser\XmlParser;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 
-class NbsBrowserTest extends \PHPUnit_Framework_TestCase
+class NbsBrowserTest extends TestCase
 {
     /**
      * @test

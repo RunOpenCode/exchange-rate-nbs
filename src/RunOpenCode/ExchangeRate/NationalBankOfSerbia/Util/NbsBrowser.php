@@ -56,14 +56,11 @@ class NbsBrowser
                     case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
                     case RateType::FOREIGN_EXCHANGE_SELLING:
                         return 1;
-                        // break;
                     case RateType::FOREIGN_CASH_BUYING:        // FALL TROUGH
                     case RateType::FOREIGN_CASH_SELLING:
                         return 2;
-                        // break;
                     default:
                         return 3;
-                        // break;
                 }
             }, $rateType),
             'index:prikaz' => 3, // XML

@@ -11,7 +11,6 @@
  */
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Source;
 
-use Psr\Http\Message\StreamInterface;
 use RunOpenCode\ExchangeRate\Contract\RateInterface;
 use RunOpenCode\ExchangeRate\Contract\SourceInterface;
 use RunOpenCode\ExchangeRate\Exception\SourceNotAvailableException;

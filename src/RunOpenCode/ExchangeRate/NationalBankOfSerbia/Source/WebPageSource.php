@@ -4,7 +4,7 @@
  *
  * Implementation of exchange rate crawler for National Bank of Serbia, http://www.nbs.rs.
  *
- * (c) 2016 RunOpenCode
+ * (c) 2017 RunOpenCode
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,6 +17,7 @@ use RunOpenCode\ExchangeRate\Contract\SourceInterface;
 use RunOpenCode\ExchangeRate\Exception\SourceNotAvailableException;
 use RunOpenCode\ExchangeRate\Log\LoggerAwareTrait;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Api;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser\XmlParser;
 use RunOpenCode\ExchangeRate\Utils\CurrencyCodeUtil;
@@ -64,7 +65,7 @@ final class WebPageSource implements SourceInterface
         $currencyCode = CurrencyCodeUtil::clean($currencyCode);
 
         if (!Api::supports($currencyCode, $rateType)) {
-            throw new \RuntimeException(sprintf('National Bank of Serbia does not supports currency code "%s" for rate type "%s".', $currencyCode, $rateType));
+            throw new RuntimeException(sprintf('National Bank of Serbia does not supports currency code "%s" for rate type "%s".', $currencyCode, $rateType));
         }
 
         if ($date === null) {
@@ -80,7 +81,7 @@ final class WebPageSource implements SourceInterface
             } catch (\Exception $e) {
                 $message = sprintf('Unable to load data from "%s" for "%s" of rate type "%s".', $this->getName(), $currencyCode, $rateType);
 
-                $this->getLogger()->emergency($message);;
+                $this->getLogger()->emergency($message);
                 throw new SourceNotAvailableException($message, 0, $e);
             }
         }
@@ -91,7 +92,7 @@ final class WebPageSource implements SourceInterface
 
         $message = sprintf('API Changed: source "%s" does not provide currency code "%s" for rate type "%s".', $this->getName(), $currencyCode, $rateType);
         $this->getLogger()->critical($message);
-        throw new \RuntimeException($message);
+        throw new RuntimeException($message);
     }
 
     /**
@@ -99,7 +100,6 @@ final class WebPageSource implements SourceInterface
      *
      * @param \DateTime $date
      * @param string $rateType
-     * @return RateInterface[]
      * @throws SourceNotAvailableException
      */
     private function load(\DateTime $date, $rateType)

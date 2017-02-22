@@ -104,19 +104,22 @@ final class WebPageSource implements SourceInterface
     private function load(\DateTime $date, $rateType)
     {
         $parser = new XmlParser();
-        $parser->parse($this->browser->getXmlDocument($date, $rateType), \Closure::bind(function($rates) {
-            /**
-             * @var RateInterface $rate
-             */
-            foreach ($rates as $rate) {
 
-                if (!array_key_exists($rate->getRateType(), $this->cache)) {
-                    $this->cache[$rate->getRateType()] = array();
-                }
+        /**
+         * @var RateInterface[] $rates
+         */
+        $rates = $parser->parse($this->browser->getXmlDocument($date, $rateType));
 
-                $this->cache[$rate->getRateType()][$rate->getCurrencyCode()] = $rate;
+        /**
+         * @var RateInterface $rate
+         */
+        foreach ($rates as $rate) {
+
+            if (!array_key_exists($rate->getRateType(), $this->cache)) {
+                $this->cache[$rate->getRateType()] = array();
             }
 
-        }, $this));
+            $this->cache[$rate->getRateType()][$rate->getCurrencyCode()] = $rate;
+        }
     }
 }

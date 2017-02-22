@@ -13,6 +13,7 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Source;
 
 use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Source\WebPageSource;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 
@@ -23,7 +24,7 @@ class WebPageSourceTest extends TestCase
      */
     public function fetchMedian()
     {
-        $rate = $this->mockSource('default')->fetch('EUR', 'default');
+        $rate = $this->mockSource(RateType::MEDIAN)->fetch('EUR', RateType::MEDIAN);
         $this->assertSame(121.6261, $rate->getValue());
     }
 
@@ -32,7 +33,7 @@ class WebPageSourceTest extends TestCase
      */
     public function fetchForeignCash()
     {
-        $rate = $this->mockSource('foreign_cash_buying')->fetch('EUR', 'foreign_cash_buying');
+        $rate = $this->mockSource(RateType::FOREIGN_CASH_BUYING)->fetch('EUR', RateType::FOREIGN_CASH_BUYING);
         $this->assertSame(120.7747, $rate->getValue());
     }
 
@@ -41,7 +42,7 @@ class WebPageSourceTest extends TestCase
      */
     public function fetchForeignExchange()
     {
-        $rate = $this->mockSource('foreign_exchange_buying')->fetch('EUR', 'foreign_exchange_buying');
+        $rate = $this->mockSource(RateType::FOREIGN_EXCHANGE_BUYING)->fetch('EUR', RateType::FOREIGN_EXCHANGE_BUYING);
         $this->assertSame(121.2612, $rate->getValue());
     }
 
@@ -65,15 +66,15 @@ class WebPageSourceTest extends TestCase
     protected function mockSource($rateType)
     {
         switch ($rateType) {
-            case 'default':
+            case RateType::MEDIAN:
                 $stream = new Stream(fopen(__DIR__ . '/../Fixtures/median.xml', 'rb'));
                 break;
-            case 'foreign_cash_buying':         // FALL TROUGH
-            case 'foreign_cash_selling':
+            case RateType::FOREIGN_CASH_BUYING:         // FALL TROUGH
+            case RateType::FOREIGN_CASH_SELLING:
                 $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_cash.xml', 'rb'));
                 break;
-            case 'foreign_exchange_buying':     // FALL TROUGH
-            case 'foreign_exchange_selling':
+            case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
+            case RateType::FOREIGN_EXCHANGE_SELLING:
                 $stream = new Stream(fopen(__DIR__ . '/../Fixtures/foreign_exchange.xml', 'rb'));
                 break;
         }

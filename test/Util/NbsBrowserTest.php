@@ -13,6 +13,7 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Util;
 
 use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Parser\XmlParser;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 
@@ -23,7 +24,7 @@ class NbsBrowserTest extends TestCase
      */
     public function fetchMedian()
     {
-        $this->assertXmlDocumentIsValid('default');
+        $this->assertXmlDocumentIsValid(RateType::MEDIAN);
     }
 
     /**
@@ -31,7 +32,7 @@ class NbsBrowserTest extends TestCase
      */
     public function fetchForeignCash()
     {
-        $this->assertXmlDocumentIsValid('foreign_cash_buying');
+        $this->assertXmlDocumentIsValid(RateType::FOREIGN_CASH_BUYING);
     }
 
     /**
@@ -39,7 +40,7 @@ class NbsBrowserTest extends TestCase
      */
     public function fetchForeignExchange()
     {
-        $this->assertXmlDocumentIsValid('foreign_exchange_buying');
+        $this->assertXmlDocumentIsValid(RateType::FOREIGN_EXCHANGE_BUYING);
     }
 
     /**
@@ -57,23 +58,22 @@ class NbsBrowserTest extends TestCase
         $xmlContent = $browser->getXmlDocument(new \DateTime('now'), $rateType)->getContents();
         $parser = new XmlParser();
 
-        $stream = fopen('php://memory', 'r+');
+        $stream = fopen('php://memory', 'r+b');
         fwrite($stream, $xmlContent);
         rewind($stream);
 
-        $parser->parse(new Stream($stream), \Closure::bind(function($rates){
-            $this->assertTrue(count($rates) > 0);
-        }, $this));
+        $rates = $parser->parse(new Stream($stream));
+        $this->assertTrue(count($rates) > 0);
 
 
         switch ($rateType) {
-            case 'default':
+            case RateType::MEDIAN:
                 $this->assertContains('OFFICIAL MIDDLE EXCHANGE RATE OF THE DINAR', $xmlContent, 'Should be XML with median exchange rates.');
                 break;
-            case 'foreign_cash_buying':
+            case RateType::FOREIGN_CASH_BUYING:
                 $this->assertContains('FOREIGN CASH', $xmlContent, 'Should be XML with foreign cash rates.');
                 break;
-            case 'foreign_exchange_buying':
+            case RateType::FOREIGN_EXCHANGE_BUYING:
                 $this->assertContains('FOREIGN EXCHANGE', $xmlContent, 'Should be XML with foreign exchange rates.');
                 break;
         }

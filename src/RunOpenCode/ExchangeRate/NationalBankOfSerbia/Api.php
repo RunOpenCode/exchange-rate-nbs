@@ -35,7 +35,7 @@ final class Api
      * @var array
      */
     private static $supports = array(
-        RateType::DEFAULT => array('EUR', 'AUD', 'CAD', 'CNY', 'HRK', 'CZK', 'DKK', 'HUF', 'JPY', 'KWD', 'NOK', 'RUB', 'SEK', 'CHF',
+        RateType::MEDIAN => array('EUR', 'AUD', 'CAD', 'CNY', 'HRK', 'CZK', 'DKK', 'HUF', 'JPY', 'KWD', 'NOK', 'RUB', 'SEK', 'CHF',
                            'GBP', 'USD', 'BAM', 'PLN', 'ATS', 'BEF', 'FIM', 'FRF', 'DEM', 'GRD', 'IEP', 'ITL', 'LUF', 'PTE',
                            'ESP'),
         RateType::FOREIGN_CASH_BUYING => array('EUR', 'CHF', 'USD'),

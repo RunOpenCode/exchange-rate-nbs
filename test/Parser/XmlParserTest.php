@@ -42,15 +42,11 @@ class XmlParserTest extends TestCase
         $this->assertParsing(__DIR__ . '/../Fixtures/foreign_exchange.xml', __DIR__ . '/../Fixtures/foreign_exchange_out.php');
     }
 
-    protected function assertParsing($pathToXmlInput, $pathToPhpOutput, $message = 'Should provide given rates.') {
+    protected function assertParsing($pathToXmlInput, $pathToPhpOutput, $message = 'Should provide given rates.')
+    {
+        $rates = SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'rb'));
 
-        $rates = null;
-
-        SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'rb'), function($result) use (&$rates) {
-            $rates = $result;
-        });
-
-        $this->assertSame(require_once $pathToPhpOutput, call_user_func(function($rates) {
+        $this->assertSame(require $pathToPhpOutput, call_user_func(function($rates) {
             $flatten = array();
             /**
              * @var RateInterface $rate

@@ -12,181 +12,181 @@
 return array (
     array (
         'currencyCode' => 'EUR',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '121.6261',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'AUD',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '81.29',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CAD',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '80.186',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CNY',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '17.1319',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'HRK',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '15.9236',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CZK',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '4.4924',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'DKK',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '16.2972',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'HUF',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.387406',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'JPY',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.924',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'KWD',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '366.4541',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'NOK',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '12.652',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'RUB',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '1.5132',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'SEK',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '13.2221',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'CHF',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '112.523',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'GBP',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '164.9391',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'USD',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '111.2468',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'BAM',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '62.1864',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'PLN',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '28.5353',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'ATS',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '8.8389',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'BEF',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '3.015032',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'FIM',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '20.456',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'FRF',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '18.5418',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'DEM',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '62.1864',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'GRD',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.356936',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'IEP',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '154.4333',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'ITL',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.062815',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'LUF',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '3.015032',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'PTE',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.606668',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'ESP',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '0.730988',
         'date' => '2015-12-31'
     ),
     array (
         'currencyCode' => 'XDR',
-        'rateType' => 'default',
+        'rateType' => 'median',
         'value' => '154.2837',
         'date' => '2015-12-31'
     ),

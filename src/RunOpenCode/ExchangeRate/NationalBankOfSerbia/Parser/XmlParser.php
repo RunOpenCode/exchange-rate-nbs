@@ -61,7 +61,7 @@ class XmlParser extends AbstractSaxHandler
         $this->stack = new \SplStack();
         $this->currentRate = array();
         $this->date = new \DateTime('now');
-        $this->rateType = RateType::DEFAULT;
+        $this->rateType = RateType::MEDIAN;
     }
 
     /**
@@ -162,7 +162,7 @@ class XmlParser extends AbstractSaxHandler
                 $this->rates[] = $buildRate(
                     $this->currentRate['middleRate'] / $this->currentRate['unit'],
                     $this->currentRate['currencyCode'],
-                    RateType::DEFAULT,
+                    RateType::MEDIAN,
                     $this->date
                 );
             }
@@ -192,8 +192,8 @@ class XmlParser extends AbstractSaxHandler
     /**
      * {@inheritdoc}
      */
-    protected function onResult(callable $callable = null)
+    protected function getResult()
     {
-        call_user_func($callable, $this->rates);
+        return $this->rates;
     }
 }

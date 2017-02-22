@@ -42,6 +42,11 @@ final class WebPageSource implements SourceInterface
      */
     private $browser;
 
+    /**
+     * WebPageSource constructor.
+     *
+     * @param NbsBrowser|null $browser
+     */
     public function __construct(NbsBrowser $browser = null)
     {
         $this->browser = ($browser !== null) ? $browser : new NbsBrowser();

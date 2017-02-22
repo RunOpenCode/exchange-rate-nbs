@@ -51,7 +51,7 @@ class NbsBrowser
             'index:brKursneListe:' => '',
             'index:year' => $date->format('Y'),
             'index:inputCalendar1' => $date->format('d/m/Y'),
-            'index:vrsta' => call_user_func(function($rateType) {
+            'index:vrsta' => call_user_func(function ($rateType) {
                 switch ($rateType) {
                     case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
                     case RateType::FOREIGN_EXCHANGE_SELLING:
@@ -66,7 +66,7 @@ class NbsBrowser
             'index:prikaz' => 3, // XML
             'index:buttonShow' => 'Show',
             'index' => 'index',
-            'javax.faces.ViewState' => $this->getFormCsrfToken()
+            'javax.faces.ViewState' => $this->getFormCsrfToken(),
         ));
     }
 
@@ -84,7 +84,7 @@ class NbsBrowser
         $response = $client->request($method, self::SOURCE, array(
             'cookies' => $this->getGuzzleCookieJar(),
             'form_params' => $params,
-            'query' => $query
+            'query' => $query,
         ));
 
         return $response->getBody();

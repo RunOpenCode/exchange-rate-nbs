@@ -41,7 +41,7 @@ final class Api
         RateType::FOREIGN_CASH_BUYING => array('EUR', 'CHF', 'USD'),
         RateType::FOREIGN_CASH_SELLING => array('EUR', 'CHF', 'USD'),
         RateType::FOREIGN_EXCHANGE_BUYING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
-        RateType::FOREIGN_EXCHANGE_SELLING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD')
+        RateType::FOREIGN_EXCHANGE_SELLING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
     );
 
     private function __construct()

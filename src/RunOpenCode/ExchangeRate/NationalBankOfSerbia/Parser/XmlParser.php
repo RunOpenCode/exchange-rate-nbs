@@ -82,7 +82,6 @@ class XmlParser extends AbstractSaxHandler
     protected function onElementData($parser, $data)
     {
         if (!empty($data)) {
-
             switch ($this->stack->top()) {
                 case 'DATE':
                     $this->date = \DateTime::createFromFormat('d.m.Y', $data);
@@ -121,7 +120,7 @@ class XmlParser extends AbstractSaxHandler
     {
         $this->stack->pop();
 
-        $buildRate = function($value, $currencyCode, $rateType, $date) {
+        $buildRate = function ($value, $currencyCode, $rateType, $date) {
 
             return new Rate(
                 Api::NAME,
@@ -138,27 +137,24 @@ class XmlParser extends AbstractSaxHandler
         if ($name === 'ITEM') {
 
             if (array_key_exists('buyingRate', $this->currentRate)) {
-
                 $this->rates[] = $buildRate(
                     $this->currentRate['buyingRate'] / $this->currentRate['unit'],
                     $this->currentRate['currencyCode'],
-                    $this->rateType . '_buying',
+                    $this->rateType.'_buying',
                     $this->date
                 );
             }
 
             if (array_key_exists('sellingRate', $this->currentRate)) {
-
                 $this->rates[] = $buildRate(
                     $this->currentRate['sellingRate'] / $this->currentRate['unit'],
                     $this->currentRate['currencyCode'],
-                    $this->rateType . '_selling',
+                    $this->rateType.'_selling',
                     $this->date
                 );
             }
 
             if (array_key_exists('middleRate', $this->currentRate)) {
-
                 $this->rates[] = $buildRate(
                     $this->currentRate['middleRate'] / $this->currentRate['unit'],
                     $this->currentRate['currencyCode'],

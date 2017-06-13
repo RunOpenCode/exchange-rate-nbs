@@ -46,7 +46,7 @@ class XmlParserTest extends TestCase
      * @test
      *
      * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
-     * @expectedExceptionMessage Unable to parse XML source from National Bank of Serbia, reason: "mismatched tag", lineno: "1".
+     * @expectedExceptionMessage Unable to parse XML source from National Bank of Serbia
      */
     public function parseError()
     {

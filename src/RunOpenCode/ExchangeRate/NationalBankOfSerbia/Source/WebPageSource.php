@@ -13,8 +13,8 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Source;
 
 use RunOpenCode\ExchangeRate\Contract\RateInterface;
 use RunOpenCode\ExchangeRate\Contract\SourceInterface;
-use RunOpenCode\ExchangeRate\Log\LoggerAwareTrait;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Api;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\SourceNotAvailableException;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
@@ -30,8 +30,6 @@ use RunOpenCode\ExchangeRate\Utils\CurrencyCodeUtil;
  */
 final class WebPageSource implements SourceInterface
 {
-    use LoggerAwareTrait;
-
     /**
      * @var array
      */
@@ -64,7 +62,7 @@ final class WebPageSource implements SourceInterface
     /**
      * {@inheritdoc}
      */
-    public function fetch($currencyCode, $rateType = 'default', \DateTime $date = null)
+    public function fetch($currencyCode, $rateType = RateType::MEDIAN, \DateTime $date = null)
     {
         $currencyCode = CurrencyCodeUtil::clean($currencyCode);
 
@@ -79,24 +77,21 @@ final class WebPageSource implements SourceInterface
         if (!array_key_exists($rateType, $this->cache)) {
 
             try {
-
                 $this->load($date, $rateType);
-
             } catch (\Exception $e) {
-                $message = sprintf('Unable to load data from "%s" for "%s" of rate type "%s".', $this->getName(), $currencyCode, $rateType);
-
-                $this->getLogger()->emergency($message);
-                throw new SourceNotAvailableException($message, 0, $e);
+                throw new SourceNotAvailableException(sprintf('Unable to load data from "%s" for "%s" of rate type "%s".', $this->getName(), $currencyCode, $rateType), 0, $e);
             }
+        }
+
+        if (!array_key_exists($rateType, $this->cache)) {
+            throw new RuntimeException(sprintf('API Changed: source "%s" does not provide rate type "%s".', $this->getName(), $rateType));
         }
 
         if (array_key_exists($currencyCode, $this->cache[$rateType])) {
             return $this->cache[$rateType][$currencyCode];
         }
 
-        $message = sprintf('API Changed: source "%s" does not provide currency code "%s" for rate type "%s".', $this->getName(), $currencyCode, $rateType);
-        $this->getLogger()->critical($message);
-        throw new RuntimeException($message);
+        throw new RuntimeException(sprintf('API Changed: source "%s" does not provide currency code "%s" for rate type "%s".', $this->getName(), $currencyCode, $rateType));
     }
 
     /**

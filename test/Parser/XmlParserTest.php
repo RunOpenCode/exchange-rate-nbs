@@ -42,6 +42,21 @@ class XmlParserTest extends TestCase
         $this->assertParsing(__DIR__ . '/../Fixtures/foreign_exchange.xml', __DIR__ . '/../Fixtures/foreign_exchange_out.php');
     }
 
+    /**
+     * @test
+     *
+     * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
+     * @expectedExceptionMessage Unable to parse XML source from National Bank of Serbia, reason: "mismatched tag", lineno: "1".
+     */
+    public function parseError()
+    {
+        $resource = fopen('php://memory', 'r+b');
+        fwrite($resource, '<root></test></root>');
+        rewind($resource);
+
+        SaxParser::factory()->parse(new XmlParser(), $resource);
+    }
+
     protected function assertParsing($pathToXmlInput, $pathToPhpOutput, $message = 'Should provide given rates.')
     {
         $rates = SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'rb'));

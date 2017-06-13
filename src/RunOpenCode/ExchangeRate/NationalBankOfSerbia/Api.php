@@ -44,10 +44,7 @@ final class Api
         RateType::FOREIGN_EXCHANGE_SELLING => array('EUR', 'AUD', 'CAD', 'CNY', 'DKK', 'JPY', 'NOK', 'RUB', 'SEK', 'CHF', 'GBP', 'USD'),
     );
 
-    private function __construct()
-    {
-        // noop
-    }
+    private function __construct() { /* noop */ }
 
     /**
      * Check if National Bank of Serbia supports given exchange rate currency code for given rate type.

@@ -13,12 +13,26 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Source;
 
 use GuzzleHttp\Psr7\Stream;
 use PHPUnit\Framework\TestCase;
+use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Api;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Source\WebPageSource;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util\NbsBrowser;
 
+/**
+ * Class WebPageSourceTest
+ *
+ * @package RunOpenCode\ExchangeRate\NationalBankOfSerbia\Tests\Source
+ */
 class WebPageSourceTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function name()
+    {
+        $this->assertEquals(Api::NAME, (new WebPageSource())->getName());
+    }
+
     /**
      * @test
      */
@@ -55,6 +69,62 @@ class WebPageSourceTest extends TestCase
     {
         $source = new WebPageSource(new NbsBrowser());
         $source->fetch('EUR', 'not_supported');
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\SourceNotAvailableException
+     */
+    public function down()
+    {
+        $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
+        $stub->method('getXmlDocument')->willThrowException(new \Exception());
+
+        $source = new WebPageSource($stub);
+
+        $source->fetch('EUR');
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
+     * @expectedExceptionMessage API Changed: source "national_bank_of_serbia" does not provide rate type "median".
+     */
+    public function apiChangedNoRateType()
+    {
+        $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
+
+        $stream = fopen('php://memory', 'r+b');
+        fwrite($stream, '<root></root>');
+
+        $stub->method('getXmlDocument')->willReturn(new Stream($stream));
+
+        $source = new WebPageSource($stub);
+
+        $source->fetch('EUR');
+    }
+
+    /**
+     * @test
+     *
+     * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
+     * @expectedExceptionMessage API Changed: source "national_bank_of_serbia" does not provide currency code "EUR" for rate type "median".
+     */
+    public function apiChangedNoCurrency()
+    {
+        $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
+
+        $resource = fopen('php://memory', 'r+b');
+        fwrite($resource, '<root><Item><Code>203</Code><Country>Czech Republic</Country><Currency>CZK</Currency><Unit>1</Unit><Middle_Rate>4.4924</Middle_Rate></Item></root>');
+        rewind($resource);
+
+        $stub->method('getXmlDocument')->willReturn(new Stream($resource));
+
+        $source = new WebPageSource($stub);
+
+        $source->fetch('EUR');
     }
 
     /**

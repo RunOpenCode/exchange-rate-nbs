@@ -18,14 +18,11 @@ namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum;
  */
 final class RateType
 {
-    const MEDIAN = 'median';
+    const MEDIAN = \RunOpenCode\ExchangeRate\Enum\RateType::MEDIAN;
     const FOREIGN_CASH_BUYING = 'foreign_cash_buying';
     const FOREIGN_CASH_SELLING = 'foreign_cash_selling';
     const FOREIGN_EXCHANGE_BUYING = 'foreign_exchange_buying';
     const FOREIGN_EXCHANGE_SELLING = 'foreign_exchange_selling';
 
-    private function __construct()
-    {
-        // noop
-    }
+    private function __construct() { /* noop */ }
 }

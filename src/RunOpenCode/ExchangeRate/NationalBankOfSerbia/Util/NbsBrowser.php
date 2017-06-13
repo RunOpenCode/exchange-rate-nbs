@@ -113,7 +113,7 @@ class NbsBrowser
             }
         }
 
-        throw new RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract token.');
+        throw new RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract token.'); // @codeCoverageIgnore
     }
 
     /**

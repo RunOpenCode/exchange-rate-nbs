@@ -121,17 +121,7 @@ class XmlParser extends AbstractSaxHandler
         $this->stack->pop();
 
         $buildRate = function ($value, $currencyCode, $rateType, $date) {
-
-            return new Rate(
-                Api::NAME,
-                $value,
-                $currencyCode,
-                $rateType,
-                $date,
-                'RSD',
-                new \DateTime('now'),
-                new \DateTime('now')
-            );
+            return new Rate(Api::NAME, $value, $currencyCode, $rateType, $date, 'RSD', new \DateTime('now'), new \DateTime('now'));
         };
 
         if ($name === 'ITEM') {

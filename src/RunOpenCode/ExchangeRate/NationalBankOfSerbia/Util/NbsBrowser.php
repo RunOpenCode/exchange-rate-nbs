@@ -27,7 +27,7 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class NbsBrowser
 {
-    const SOURCE = 'http://www.nbs.rs/kursnaListaModul/naZeljeniDan.faces';
+    const SOURCE = 'https://www.nbs.rs/kursnaListaModul/naZeljeniDan.faces';
     /**
      * @var Client
      */

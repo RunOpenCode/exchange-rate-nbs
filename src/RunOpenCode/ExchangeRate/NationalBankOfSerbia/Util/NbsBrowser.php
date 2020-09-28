@@ -49,9 +49,9 @@ class NbsBrowser
     {
         return $this->request('POST', array(), array(
             'index:brKursneListe:' => '',
-            'index:year' => $date->format('Y'),
+            'index:yearInner' => $date->format('Y'),
             'index:inputCalendar1' => $date->format('d/m/Y'),
-            'index:vrsta' => call_user_func(function ($rateType) {
+            'index:vrstaInner' => call_user_func(function ($rateType) {
                 switch ($rateType) {
                     case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
                     case RateType::FOREIGN_EXCHANGE_SELLING:
@@ -63,7 +63,7 @@ class NbsBrowser
                         return 3;
                 }
             }, $rateType),
-            'index:prikaz' => 3, // XML
+            'index:prikazInner' => 3, // XML
             'index:buttonShow' => 'Show',
             'index' => 'index',
             'javax.faces.ViewState' => $this->getFormCsrfToken(),

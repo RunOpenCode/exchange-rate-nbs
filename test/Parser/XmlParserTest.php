@@ -20,6 +20,8 @@ class XmlParserTest extends TestCase
 {
     /**
      * @test
+     *
+     * @return void
      */
     public function median()
     {
@@ -28,6 +30,8 @@ class XmlParserTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function foreignCash()
     {
@@ -36,6 +40,8 @@ class XmlParserTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function foreignExchange()
     {
@@ -47,6 +53,8 @@ class XmlParserTest extends TestCase
      *
      * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
      * @expectedExceptionMessage Unable to parse XML source from National Bank of Serbia
+     *
+     * @return void
      */
     public function parseError()
     {
@@ -57,7 +65,10 @@ class XmlParserTest extends TestCase
         SaxParser::factory()->parse(new XmlParser(), $resource);
     }
 
-    protected function assertParsing($pathToXmlInput, $pathToPhpOutput, $message = 'Should provide given rates.')
+    /**
+     * @return void
+     */
+    protected function assertParsing(string $pathToXmlInput, string $pathToPhpOutput, string $message = 'Should provide given rates.')
     {
         $rates = SaxParser::factory()->parse(new XmlParser(), fopen($pathToXmlInput, 'rb'));
 

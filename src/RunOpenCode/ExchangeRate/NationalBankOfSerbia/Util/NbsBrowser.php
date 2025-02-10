@@ -9,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace RunOpenCode\ExchangeRate\NationalBankOfSerbia\Util;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\StreamInterface;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Enum\RateType;
 use RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException;
@@ -27,16 +29,12 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class NbsBrowser
 {
-    const SOURCE = 'https://www.nbs.rs/kursnaListaModul/naZeljeniDan.faces';
+    const SOURCE = 'https://webappcenter.nbs.rs/WebApp1/ExchangeRate/ExchangeRate';
+
     /**
      * @var Client
      */
     private $guzzleClient;
-
-    /**
-     * @var CookieJar
-     */
-    private $guzzleCookieJar;
 
     /**
      * Get XML document with rates.
@@ -47,73 +45,61 @@ class NbsBrowser
      */
     public function getXmlDocument(\DateTime $date, $rateType)
     {
-        return $this->request('POST', array(), array(
-            'index:brKursneListe:' => '',
-            'index:yearInner' => $date->format('Y'),
-            'index:inputCalendar1' => $date->format('d/m/Y'),
-            'index:vrstaInner' => call_user_func(function ($rateType) {
-                switch ($rateType) {
-                    case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
-                    case RateType::FOREIGN_EXCHANGE_SELLING:
-                        return 1;
-                    case RateType::FOREIGN_CASH_BUYING:        // FALL TROUGH
-                    case RateType::FOREIGN_CASH_SELLING:
-                        return 2;
-                    default:
-                        return 3;
-                }
-            }, $rateType),
-            'index:prikazInner' => 3, // XML
-            'index:buttonShow' => 'Show',
-            'index' => 'index',
-            'javax.faces.ViewState' => $this->getFormCsrfToken(),
-        ));
+        $rateInfo = call_user_func(function ($rateType) {
+            switch ($rateType) {
+                case RateType::FOREIGN_EXCHANGE_BUYING:     // FALL TROUGH
+                case RateType::FOREIGN_EXCHANGE_SELLING:
+                    return ['id' => 1, 'rateName' => 'devize'];
+                case RateType::FOREIGN_CASH_BUYING:        // FALL TROUGH
+                case RateType::FOREIGN_CASH_SELLING:
+                    return ['id' => 2, 'rateName' => 'efektiva'];
+                default:
+                    return ['id' => 3, 'rateName' => 'srednjiKurs'];
+            }
+        }, $rateType);
+
+        $htmlContent = $this->getHtmlContent($date, $rateInfo['id']);
+
+        $idPosition = strpos($htmlContent, 'ExchangeRateListID=');
+
+        if (!$idPosition) {
+            throw new RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract list id.'); // @codeCoverageIgnore
+        }
+
+        return $this->getXMLContent($idPosition, $htmlContent, $rateInfo['rateName']);
     }
 
-    /**
-     * Execute HTTP request and get raw body response.
-     *
-     * @param string $method HTTP Method.
-     * @param array $params Params to send with request.
-     * @return StreamInterface
-     */
-    private function request($method, array $query = array(), array $params = array())
+    private function getHtmlContent(\DateTime $date, int $id): string
     {
         $client = $this->getGuzzleClient();
 
-        $response = $client->request($method, self::SOURCE, array(
-            'cookies' => $this->getGuzzleCookieJar(),
-            'form_params' => $params,
-            'query' => $query,
-        ));
+        $response = $client->request('GET', \sprintf('%s?isSearchExecuted=true&Date=%s.&ExchangeRateListTypeID=%s', self::SOURCE, $date->format('d.m.Y'), $id));
 
-        return $response->getBody();
-    }
-
-    /**
-     * Get NBS's form CSRF token.
-     *
-     * @return string CSRF token.
-     *
-     * @throws \RuntimeException When API is changed.
-     */
-    private function getFormCsrfToken()
-    {
-        $crawler = new Crawler($this->request('GET')->getContents());
-
-        $hiddens = $crawler->filter('input[type="hidden"]');
-
-        /**
-         * @var \DOMElement $hidden
-         */
-        foreach ($hiddens as $hidden) {
-
-            if ($hidden->getAttribute('name') === 'javax.faces.ViewState') {
-                return $hidden->getAttribute('value');
-            }
+        if (200 !== $response->getStatusCode()) {
+            throw new RuntimeException('FATAL ERROR: National Bank of Serbia currency page is not available currently.'); // @codeCoverageIgnore
         }
 
-        throw new RuntimeException('FATAL ERROR: National Bank of Serbia changed it\'s API, unable to extract token.'); // @codeCoverageIgnore
+        return $response->getBody()->getContents(); // It's a small page - no need to stream it
+    }
+
+    private function getXMLContent(int $idPosition, string $htmlContent, string $rateName): StreamInterface
+    {
+        $client = $this->getGuzzleClient();
+
+        $startPos = $idPosition + strlen('ExchangeRateListID=');
+
+        $listId = substr($htmlContent, $startPos, 36); // UUID is 36 characters long
+
+        $url = sprintf(
+            '%s/Download?ExchangeRateListID=%s&exchangeRateListTypeID=3&ExchangeRateListTypeName=%s&Format=xml',
+            self::SOURCE,
+            $listId,
+            $rateName
+        );
+
+        $response = $client->request('GET', $url);
+
+        return $response->getBody();
     }
 
     /**
@@ -128,19 +114,5 @@ class NbsBrowser
         }
 
         return $this->guzzleClient;
-    }
-
-    /**
-     * Get Guzzle CookieJar.
-     *
-     * @return CookieJar
-     */
-    private function getGuzzleCookieJar()
-    {
-        if ($this->guzzleCookieJar === null) {
-            $this->guzzleCookieJar = new CookieJar();
-        }
-
-        return $this->guzzleCookieJar;
     }
 }

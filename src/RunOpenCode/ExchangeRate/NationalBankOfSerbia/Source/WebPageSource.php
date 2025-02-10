@@ -31,7 +31,7 @@ use RunOpenCode\ExchangeRate\Utils\CurrencyCodeUtil;
 final class WebPageSource implements SourceInterface
 {
     /**
-     * @var array
+     * @var array<string, array<string, RateInterface>>
      */
     private $cache;
 
@@ -100,6 +100,8 @@ final class WebPageSource implements SourceInterface
      * @param \DateTime $date
      * @param string $rateType
      * @throws SourceNotAvailableException
+     *
+     * @return void
      */
     private function load(\DateTime $date, $rateType)
     {

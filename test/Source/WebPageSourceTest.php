@@ -27,6 +27,8 @@ class WebPageSourceTest extends TestCase
 {
     /**
      * @test
+     *
+     * @return void
      */
     public function name()
     {
@@ -35,6 +37,8 @@ class WebPageSourceTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchMedian()
     {
@@ -44,6 +48,8 @@ class WebPageSourceTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchForeignCash()
     {
@@ -53,6 +59,8 @@ class WebPageSourceTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchForeignExchange()
     {
@@ -62,6 +70,8 @@ class WebPageSourceTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      *
      * @expectedException \RuntimeException
      */
@@ -74,11 +84,14 @@ class WebPageSourceTest extends TestCase
     /**
      * @test
      *
+     * @return void
      * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\SourceNotAvailableException
      */
     public function down()
     {
+        /** @var NbsBrowser&\PHPUnit_Framework_MockObject_MockObject $stub */
         $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
+
         $stub->method('getXmlDocument')->willThrowException(new \Exception());
 
         $source = new WebPageSource($stub);
@@ -91,9 +104,12 @@ class WebPageSourceTest extends TestCase
      *
      * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
      * @expectedExceptionMessage API Changed: source "national_bank_of_serbia" does not provide rate type "median".
+     *
+     * @return void
      */
     public function apiChangedNoRateType()
     {
+        /** @var NbsBrowser&\PHPUnit_Framework_MockObject_MockObject $stub */
         $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
 
         $stream = fopen('php://memory', 'r+b');
@@ -111,9 +127,12 @@ class WebPageSourceTest extends TestCase
      *
      * @expectedException \RunOpenCode\ExchangeRate\NationalBankOfSerbia\Exception\RuntimeException
      * @expectedExceptionMessage API Changed: source "national_bank_of_serbia" does not provide currency code "EUR" for rate type "median".
+     *
+     * @return void
      */
     public function apiChangedNoCurrency()
     {
+        /** @var NbsBrowser&\PHPUnit_Framework_MockObject_MockObject $stub */
         $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
 
         $resource = fopen('php://memory', 'r+b');
@@ -128,12 +147,10 @@ class WebPageSourceTest extends TestCase
     }
 
     /**
-     * Mock source.
+     * Mock source
      *
-     * @param string $rateType
-     * @return WebPageSource
      */
-    protected function mockSource($rateType)
+    protected function mockSource(string $rateType): WebPageSource
     {
         switch ($rateType) {
             case RateType::MEDIAN:
@@ -149,8 +166,9 @@ class WebPageSourceTest extends TestCase
                 break;
         }
 
+        /** @var NbsBrowser&\PHPUnit_Framework_MockObject_MockObject $stub */
         $stub = $this->getMockBuilder(NbsBrowser::class)->getMock();
-        $stub->method('getXmlDocument')->willReturn($stream);
+        $stub->method('getXmlDocument')->willReturn($stream); //@phpstan-ignore-line
 
         return new WebPageSource($stub);
     }

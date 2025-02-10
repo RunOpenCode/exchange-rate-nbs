@@ -21,6 +21,8 @@ class NbsBrowserTest extends TestCase
 {
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchMedian()
     {
@@ -29,6 +31,8 @@ class NbsBrowserTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchForeignCash()
     {
@@ -37,6 +41,8 @@ class NbsBrowserTest extends TestCase
 
     /**
      * @test
+     *
+     * @return void
      */
     public function fetchForeignExchange()
     {
@@ -51,6 +57,8 @@ class NbsBrowserTest extends TestCase
      * XMLSchema with XML document. I wonder if they have it at all...
      *
      * @param string $rateType
+     *
+     * @return void
      */
     protected function assertXmlDocumentIsValid($rateType)
     {
@@ -65,16 +73,15 @@ class NbsBrowserTest extends TestCase
         $rates = $parser->parse(new Stream($stream));
         $this->assertTrue(count($rates) > 0);
 
-
         switch ($rateType) {
             case RateType::MEDIAN:
-                $this->assertContains('OFFICIAL MIDDLE EXCHANGE RATE OF THE DINAR', $xmlContent, 'Should be XML with median exchange rates.');
+                $this->assertContains('<Type>srednjiKurs</Type>', $xmlContent, 'Should be XML with type "srednjiKurs".');
                 break;
             case RateType::FOREIGN_CASH_BUYING:
-                $this->assertContains('FOREIGN CASH', $xmlContent, 'Should be XML with foreign cash rates.');
+                $this->assertContains('<Type>efektiva</Type>', $xmlContent, 'Should be XML with type "efektiva".');
                 break;
             case RateType::FOREIGN_EXCHANGE_BUYING:
-                $this->assertContains('FOREIGN EXCHANGE', $xmlContent, 'Should be XML with foreign exchange rates.');
+                $this->assertContains('<Type>devize</Type>', $xmlContent, 'Should be XML with type "devize".');
                 break;
         }
     }

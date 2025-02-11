@@ -29,7 +29,7 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class NbsBrowser
 {
-    const SOURCE = 'https://webappcenter.nbs.rs/WebApp1/ExchangeRate/ExchangeRate';
+    const SOURCE = 'https://webappcenter.nbs.rs/WebApp/ExchangeRate/ExchangeRate';
 
     /**
      * @var Client

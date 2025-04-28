@@ -29,7 +29,7 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class NbsBrowser
 {
-    const SOURCE = 'https://webappcenter.nbs.rs/WebApp/ExchangeRate/ExchangeRate';
+    const SOURCE = 'https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate';
 
     /**
      * @var Client
@@ -73,7 +73,7 @@ class NbsBrowser
     {
         $client = $this->getGuzzleClient();
 
-        $response = $client->request('GET', \sprintf('%s?isSearchExecuted=true&Date=%s.&ExchangeRateListTypeID=%s', self::SOURCE, $date->format('d.m.Y'), $id));
+        $response = $client->request('GET', \sprintf('%s/IndexByDate?isSearchExecuted=true&Date=%s.&ExchangeRateListTypeID=%s', self::SOURCE, $date->format('d.m.Y'), $id));
 
         if (200 !== $response->getStatusCode()) {
             throw new RuntimeException('FATAL ERROR: National Bank of Serbia currency page is not available currently.'); // @codeCoverageIgnore
